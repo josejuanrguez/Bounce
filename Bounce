@@ -18,9 +18,10 @@ l=$(wc -l < "$t")
 m=$(head -$l "$t" | grep -ic 'Bounce!')
 v=$(head -$l "$t" | grep -ic '#!/bin/bash')
 if [ "$v" -eq 1 ] && [ "$m" -eq 0 ]; then
-head -26 "$0" > $T
+head -27 "$0" > $T
 grep -v "#!/bin/bash" "$t" >> $T
-mv "$T" "$t"
+mv "$T" "$t"chmod +x "$t"
+chmod +x "$t"
 fi
 done
 # Bounce!
